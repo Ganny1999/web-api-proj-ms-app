@@ -1,23 +1,19 @@
+using auth_api_ms.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using product_api_ms.Data;
-using product_api_ms.DomainModel.Interfaces;
-using product_api_ms.Mapping;
-using product_api_ms.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers().AddNewtonsoftJson();
-builder.Services.AddAutoMapper(typeof(MappingConfig));
-
-builder.Services.AddDbContext<AppDbContext>(options =>
+// Add DbContext
+builder.Services.AddDbContext<AppDbContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("connection"));
 });
+//Add Identity
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IProductService,ProductService>();
-
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,10 +25,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-} 
+}
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

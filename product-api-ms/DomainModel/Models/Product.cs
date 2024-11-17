@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace product_api_ms.Models
+namespace product_api_ms.DomainModel.Models
 {
     public class Product
     {
@@ -9,11 +9,12 @@ namespace product_api_ms.Models
         [Required]
         public string ProductName { get; set; }
         [Required]
-        public string Discription {  get; set; }
+        public string Discription { get; set; }
         [Required]
-        [Range(1,1000)]
-        public int Price {  get; set; }
-        [Range(1,5)]
+        [Range(1, 1000)]
+        public int Price { get; set; }
+        [Range(1, 5)]
         public int rating { get; set; }
+        public string Originated { get; set; }
     }
 }

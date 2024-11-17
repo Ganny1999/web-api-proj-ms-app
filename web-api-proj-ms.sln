@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "product-api-ms", "product-api-ms\product-api-ms.csproj", "{8A8243CF-64EF-4B63-8718-784D36F9B9EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "product-api-ms", "product-api-ms\product-api-ms.csproj", "{8A8243CF-64EF-4B63-8718-784D36F9B9EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "auth-api-ms", "auth-api-ms\auth-api-ms.csproj", "{99913A75-18D4-492E-B97C-7AE559CDA7FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "order-api-ms", "order-api-ms\order-api-ms.csproj", "{A7AB3980-EC0D-49A2-8E5F-820EF5577AED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{8A8243CF-64EF-4B63-8718-784D36F9B9EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8243CF-64EF-4B63-8718-784D36F9B9EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8243CF-64EF-4B63-8718-784D36F9B9EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99913A75-18D4-492E-B97C-7AE559CDA7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99913A75-18D4-492E-B97C-7AE559CDA7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99913A75-18D4-492E-B97C-7AE559CDA7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99913A75-18D4-492E-B97C-7AE559CDA7FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7AB3980-EC0D-49A2-8E5F-820EF5577AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7AB3980-EC0D-49A2-8E5F-820EF5577AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7AB3980-EC0D-49A2-8E5F-820EF5577AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7AB3980-EC0D-49A2-8E5F-820EF5577AED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
