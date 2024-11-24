@@ -17,5 +17,6 @@ namespace auth_api_ms.DomainModel.Models
         [Phone]
         [Required]
         public string PhoneNumber { get; set; }
+        public string Role { get; set; }
     }
 }

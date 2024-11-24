@@ -11,6 +11,7 @@ namespace auth_api_ms.Controllers
     public class TestUrlController : ControllerBase
     {
         [HttpGet]
+        [Authorize(Roles ="ADMIN")]
         public string testUrl()
         {
             return "Yes, its working.";

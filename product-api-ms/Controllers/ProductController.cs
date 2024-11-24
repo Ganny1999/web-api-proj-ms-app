@@ -1,4 +1,6 @@
-﻿using Azure;
+﻿using AutoMapper;
+using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -18,19 +20,23 @@ namespace product_api_ms.Controllers
     {
         public readonly AppDbContext _context;
         public readonly IProductService _productService;
-        public ProductController(AppDbContext context, IProductService productService)
+        public readonly IMapper _mapper;
+        public ProductController(AppDbContext context, IProductService productService,IMapper mapper)
         {
             _context = context;
             _productService = productService;
+            _mapper = mapper;
         }
         [HttpGet]
+        [Authorize(Roles ="ADMIN,USER")]
         public Task<IEnumerable<ProductDto>> GetProducts()
         {
             var products = _productService.GetAllProductAsync();
             return products;
         }
         [HttpPost]
-        public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
+        [Authorize(Roles ="ADMIN")]
+        public async Task<ActionResult<ProductDto>> AddProduct([FromBody] Product product)
         {
 
             var addProduct = await _productService.AddProductAsync(product);
@@ -41,27 +47,10 @@ namespace product_api_ms.Controllers
             }
 
             return Ok(addProduct);
-            //=============================================================
-            /*
-            var isExist = _context.Products.FirstOrDefault(u => u.ProductName == product.ProductName);
-            if (product == null)
-            {
-                return BadRequest();
-            }
-            if (isExist == null)
-            {
-                var res = _context.Products.Add(product);
-
-                var isAdded = _context.Products.FirstOrDefault(u => u.ProductName == product.ProductName);
-                _context.SaveChanges();
-                return isAdded;
-            }
-            return Ok(product);
-
-            */
         }
 
         [HttpDelete]
+        [Authorize(Roles = "ADMIN")]
         [Route("DeleteProduct")]
         public ActionResult<Product> DeleteProduct(int prodID)
         {
@@ -79,6 +68,7 @@ namespace product_api_ms.Controllers
         }
         [HttpPut]
         [Route("UpdateProduct")]
+        [Authorize(Roles = "ADMIN")]
         public ActionResult<Product> UpdateProduct([FromBody] Product product, int prodID)
         {
             if(product == null || prodID== null)
@@ -105,6 +95,7 @@ namespace product_api_ms.Controllers
         }
         [HttpPatch]
         [Route("{prodID:int}/UpdatePartial")]
+        [Authorize(Roles = "ADMIN")]
         public ActionResult<Product> UpdatePartial(int prodID, [FromBody] JsonPatchDocument<Product> productPatch)
         {
             try

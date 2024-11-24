@@ -16,7 +16,7 @@ namespace product_api_ms.Services
         public ProductService(AppDbContext dbContext,IMapper mapper)
         {
                 _dbContext=dbContext;
-            _mapper=mapper;
+                _mapper=mapper;
         }
         public async Task<ProductDto> AddProductAsync(Product product)
         {
@@ -28,12 +28,13 @@ namespace product_api_ms.Services
             var isEstist = await _dbContext.Products.FirstOrDefaultAsync(u=>u.ProductName==product.ProductName);
             if(isEstist==null)
             {
-                var addedProdut = await _dbContext.Products.AddAsync(product);
+                var isSuccess = await _dbContext.Products.AddAsync(product);
                 await _dbContext.SaveChangesAsync();
 
-                var adedProductDto = _mapper.Map<ProductDto>(addedProdut);
+                var IsAdded = await _dbContext.Products.FirstOrDefaultAsync(u => u.ProductName == product.ProductName);
+                var addedProductDto = _mapper.Map<ProductDto>(IsAdded);
 
-                return adedProductDto; 
+                return addedProductDto; 
             }
 
             return new ProductDto { };

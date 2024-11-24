@@ -10,6 +10,6 @@ namespace auth_api_ms.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

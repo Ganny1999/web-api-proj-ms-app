@@ -39,5 +39,15 @@ namespace auth_api_ms.Controllers
             }
             return BadRequest();
         }
+        [HttpPost("AddRole")]
+        public async Task<bool> AddRole([FromBody] RegisterUser user)
+        {
+            if(user!=null)
+            {
+                var isSuccess = _authService.AssignRole(user.Email, user.Role);
+                return isSuccess.Result;
+            }
+            return false;
+        }
     }
 }
