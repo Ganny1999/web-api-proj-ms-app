@@ -21,7 +21,7 @@ namespace product_api_ms.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("product_api_ms.Models.Product", b =>
+            modelBuilder.Entity("product_api_ms.DomainModel.Models.Product", b =>
                 {
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
@@ -33,6 +33,10 @@ namespace product_api_ms.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Originated")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -40,8 +44,8 @@ namespace product_api_ms.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("rating")
-                        .HasColumnType("int");
+                    b.Property<decimal>("rating")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProductID");
 

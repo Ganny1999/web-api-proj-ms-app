@@ -1,0 +1,49 @@
+﻿@* @model IEnumerable<ProductDto> *@
+
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Product Table</h2>
+
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Rating</th>
+        </tr>
+        <tbody>
+           @*  @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price</td>
+                    <td>@item.rating</td>
+                </tr>
+            } *@
+
+        </tbody>
+
+    </table>
+
+</body>
+</html>
+
