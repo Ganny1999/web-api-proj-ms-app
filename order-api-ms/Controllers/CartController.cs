@@ -15,8 +15,8 @@ namespace order_api_ms.Controllers
             _cartService = cartService;
         }
         [HttpPost]
-        [Route("GetCart")]
-        public async Task<CartDetails> GetCart([FromBody]int CustomerID)
+        [Route("GetCart/{CustomerID:int}")]
+        public async Task<CartDetails> GetCart(int CustomerID)
         {
             try
             {
@@ -45,8 +45,8 @@ namespace order_api_ms.Controllers
             return UpsertedCart;
         }
         [HttpDelete]
-        [Route("RemoveCart")]
-        public async Task<bool> RemoveCart([FromBody] int CartItemsID)
+        [Route("RemoveCart/{CartItemsID:int}")]
+        public async Task<bool> RemoveCart(int CartItemsID)
         {
             try
             {

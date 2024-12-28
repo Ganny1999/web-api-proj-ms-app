@@ -14,7 +14,7 @@ namespace product_api_ms.DomainModel.Models
         [Range(1, 1000)]
         public int Price { get; set; }
         [Range(1, 5)]
-        public int rating { get; set; }
+        public decimal rating { get; set; }
         public string Originated { get; set; }
     }
 }

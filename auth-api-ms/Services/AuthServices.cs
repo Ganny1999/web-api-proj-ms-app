@@ -2,6 +2,8 @@
 using auth_api_ms.DomainModel.Interfaces;
 using auth_api_ms.DomainModel.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -135,6 +137,25 @@ namespace auth_api_ms.Services
             catch(Exception ex)
             {
                 throw ex;   
+            }
+        }
+        public async Task<ApplicationUser> GetUserDetailsByID(string userID)
+        {
+            var result = await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u=>u.Id.Equals(userID));
+
+            return result;
+        }
+
+        public async Task<bool> IsUserExists(string userID)
+        {
+            var userExists = await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id.Equals(userID));
+            if(userExists!= null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

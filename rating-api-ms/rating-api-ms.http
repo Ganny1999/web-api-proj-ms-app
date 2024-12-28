@@ -1,0 +1,6 @@
+@rating_api_ms_HostAddress = http://localhost:5244
+
+GET {{rating_api_ms_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

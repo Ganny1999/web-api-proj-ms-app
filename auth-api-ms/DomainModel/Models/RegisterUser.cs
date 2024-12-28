@@ -15,7 +15,7 @@ namespace auth_api_ms.DomainModel.Models
         [PasswordPropertyText]
         public string Password { get; set; }
         [Phone]
-        [Required]
+        [Required]  
         public string PhoneNumber { get; set; }
         public string Role { get; set; }
     }

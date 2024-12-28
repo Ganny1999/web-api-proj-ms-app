@@ -10,5 +10,6 @@ namespace product_api_ms.DomainModel.Interfaces
         Task<ProductDto> AddProductAsync(Product product);
         Task<ProductDto> UpdateProductAsync(Product product);
         Task DeleteProductAsync(int ProductID);
+        Task<bool> UpdateProductRating();
     }
 }

@@ -44,8 +44,28 @@ namespace auth_api_ms.Controllers
         {
             if(user!=null)
             {
-                var isSuccess = _authService.AssignRole(user.Email, user.Role);
-                return isSuccess.Result;
+                var isSuccess = await _authService.AssignRole(user.Email, user.Role);
+                return isSuccess;
+            }
+            return false;
+        }
+        [HttpGet("GetUserByID/{UserID}")]
+        public async Task<ActionResult> GetUserByID(string UserID)
+        {
+           var UserDetails= await _authService.GetUserDetailsByID(UserID);
+            if (UserDetails.Id==UserID)
+            {
+                return NotFound();
+            }
+            return Ok(UserDetails);
+        }
+        [HttpGet("IsUserExist/{UserID}")]
+        public async Task<ActionResult<bool>> IsUserExist(string UserID)
+        {
+            var isUserExists = await _authService.IsUserExists(UserID);
+            if(isUserExists==true)
+            {
+                return true;
             }
             return false;
         }
