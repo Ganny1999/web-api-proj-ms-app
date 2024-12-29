@@ -106,7 +106,7 @@ namespace order_api_ms.Services
             }
             //return new Cart { };
         }
-        public async Task<bool> RemoveCartAsync([FromBody] int CartDetailsID)
+        public async Task<bool> RemoveCartItemAsync(int CartDetailsID)
         {
             // Seach for CartItem to delete
             var CartItemsFromDb = await _dbContext.CartItems.AsNoTracking().FirstOrDefaultAsync(u => u.CartItemId == CartDetailsID);
@@ -127,6 +127,23 @@ namespace order_api_ms.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<Cart> RemoveCart(int CartID)
+        {
+            var IsCartExists = await _dbContext.Carts.FirstOrDefaultAsync(u=>u.CartID == CartID);
+            
+            if(IsCartExists != null)
+            {
+                var CartItemLIst = await _dbContext.CartItems.Where(u => u.CartID == IsCartExists.CartID).ToListAsync();
+                _dbContext.CartItems.RemoveRange(CartItemLIst);
+                _dbContext.Carts.Remove(IsCartExists);
+
+                await _dbContext.SaveChangesAsync();
+
+                return IsCartExists;
+            }
+            return null;
         }
     }
 }

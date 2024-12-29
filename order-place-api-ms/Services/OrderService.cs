@@ -95,11 +95,11 @@ namespace order_place_api_ms.Services
                             };
                             OrderItemsList.Add(OrderItems);
                         }
-                        //if(CartDetailsFromDb.CartItems.Count()==OrderItemsList.Count())
-                        //{
-                        //    // Remove Cart logic
-                        //    await _cartService.RemoveCart(CartDetailsFromDb.Cart.CartID);
-                        //}    
+                        if (CartDetailsFromDb.CartItems.Count() == OrderItemsList.Count())
+                        {
+                            // Remove Cart logic
+                            var cart = await _cartService.RemoveCart(CartDetailsFromDb.Cart.CartID);
+                        }
                         await _appDbContext.OrderItems.AddRangeAsync(OrderItemsList);
                         await _appDbContext.SaveChangesAsync();
                         return OrderDetailsFromDb;

@@ -34,7 +34,7 @@ namespace order_place_api_ms.Controllers
             }
             return BadRequest();
         }
-        [HttpGet]
+        [HttpGet("GetOrderByID/{orderID:int}")]
         public async Task<ActionResult<Order>> GetOrderByID(Guid orderID)
         {
 
