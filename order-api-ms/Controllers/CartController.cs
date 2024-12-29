@@ -44,13 +44,13 @@ namespace order_api_ms.Controllers
             var UpsertedCart = await _cartService.UpsertCartAsync(cartDetails);
             return UpsertedCart;
         }
-        [HttpDelete]
-        [Route("RemoveCart/{CartItemsID:int}")]
-        public async Task<bool> RemoveCart(int CartItemsID)
+        [HttpPost]
+        [Route("RemoveCartItem/{CartItemsID:int}")]
+        public async Task<bool> RemoveCartItem(int CartItemsID)
         {
             try
             {
-                var IsCartItemDeleted = await _cartService.RemoveCartAsync(CartItemsID);
+                var IsCartItemDeleted = await _cartService.RemoveCartItemAsync(CartItemsID);
                 if (IsCartItemDeleted)
                 {
                     return true;
@@ -60,7 +60,17 @@ namespace order_api_ms.Controllers
             catch(Exception  ex)
             {
                 throw ex;
-            }            
+            }          
+        }
+        [HttpPost("RemoveCart/{cartID:int}")]
+        public async Task<ActionResult<Cart>> RemoveCart(int cartID)
+        {
+            var result = await _cartService.RemoveCart(cartID);
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
         }
     }
 }

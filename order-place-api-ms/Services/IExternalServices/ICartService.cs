@@ -5,6 +5,6 @@ namespace order_place_api_ms.Services.IExternalServices
     public interface ICartService
     {
         Task<CartDetails> GetCartDetails(int CustomerID);
-        Task<bool> RemoveCart(int CartItemsID);
+        Task<Cart> RemoveCart(int CartItemsID);
     }
 }

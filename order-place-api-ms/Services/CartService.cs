@@ -34,23 +34,23 @@ namespace order_place_api_ms.Services
             return cartDetails;
         }
 
-        public async Task<bool> RemoveCart(int cartDetailID)
+        public async Task<Cart> RemoveCart(int cartID)
         {
             var requestPayload = new CartRemoveRequestDto()
             {
-                CartDetailID = cartDetailID
+                CartID = cartID
             };
 
             var jsonPayload = JsonConvert.SerializeObject(requestPayload);
             var content = new StringContent(jsonPayload,Encoding.UTF8,"application/json");
 
             var client = _httpClientFactory.CreateClient("Cart");
-            var response = await client.PostAsync($"/api/cart/RemoveCart/{cartDetailID}",content);
+            var response = await client.PostAsync($"/api/Cart/RemoveCart/{cartID}",content);
 
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var isSuccess = JsonConvert.DeserializeObject<bool>(responseContent);
+            var isSuccess = JsonConvert.DeserializeObject<Cart>(responseContent);
 
             return isSuccess;
         }

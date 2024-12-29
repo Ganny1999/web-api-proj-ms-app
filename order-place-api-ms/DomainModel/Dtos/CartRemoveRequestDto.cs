@@ -2,6 +2,6 @@
 {
     public class CartRemoveRequestDto
     {
-        public int CartDetailID { get; set; }
+        public int CartID { get; set; }
     }
 }
