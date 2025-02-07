@@ -1,4 +1,5 @@
-﻿@* @model IEnumerable<ProductDto> *@
+﻿@using web_frontend_app.Models.DTOs
+@model IEnumerable<ProductDto>
 
 <html>
 <head>
@@ -29,19 +30,30 @@
             <th>Product Name</th>
             <th>Price</th>
             <th>Rating</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
         </tr>
         <tbody>
-           @*  @foreach (var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.ProductName</td>
                     <td>@item.Price</td>
                     <td>@item.rating</td>
+                    <td>
+                        <a asp-action="EditProduct" asp-route-id="@item.ProductID" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> <!-- Font Awesome Pencil Icon -->
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger delete-btn" data-id="@item.ProductID">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                 </tr>
-            } *@
-
+            }
         </tbody>
-
     </table>
 
 </body>
