@@ -13,6 +13,14 @@ namespace web_frontend_app.Services
         {
             _httpClientFactory = httpClientFactory; 
         }
+
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            var httpClient = _httpClientFactory.CreateClient("Product");
+            var response = await httpClient.DeleteAsync("/api/product/DeleteProduct/" + id);            
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<IEnumerable<ProductDto>> GetProductAsync()
         {
              var httpClient = _httpClientFactory.CreateClient("Product");

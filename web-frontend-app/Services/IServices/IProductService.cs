@@ -5,5 +5,6 @@ namespace web_frontend_app.Services.IServices
     public interface IProductService
     {
         Task<IEnumerable<ProductDto>> GetProductAsync();
+        Task<bool> DeleteProductAsync(int id);
     }
 }

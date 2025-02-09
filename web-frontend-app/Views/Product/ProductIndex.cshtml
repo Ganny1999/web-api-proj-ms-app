@@ -47,9 +47,12 @@
                         </a>
                     </td>
                     <td>
-                        <button class="btn btn-danger delete-btn" data-id="@item.ProductID">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                        <form asp-action="DeleteProduct" asp-controller="Product" method="post">
+                            <input type="hidden" name="id" value="@item.ProductID" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> <!-- Delete Icon -->
+                            </button>
+                        </form>
                     </td>
                 </tr>
             }

@@ -43,9 +43,26 @@ namespace product_api_ms.Services
             return new ProductDto { };
         }
 
-        public Task DeleteProductAsync(int ProductID)
+        public async Task<bool> DeleteProductAsync(int ProductID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var isProductExists = await _dbContext.Products.FirstOrDefaultAsync(u => u.ProductID == ProductID);
+                if (isProductExists != null)
+                {
+                    _dbContext.Products.Remove(isProductExists);
+                    await _dbContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException($"Error while deleting the product with {ProductID}",ex);
+            }            
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllProductAsync()
@@ -74,6 +91,7 @@ namespace product_api_ms.Services
         {
             throw new NotImplementedException();
         }
+        // it will fetch the records from rating endpoints
         public async Task<bool> UpdateProductRating()
         {
             try
@@ -94,6 +112,26 @@ namespace product_api_ms.Services
                 return false;
             }
             
+        }
+
+        public async Task<IEnumerable<ProductDto>> SearchProductByName(string ProductKeyword)
+        {
+            try
+            {
+                var isProductExist = await _dbContext.Products.Where(u => u.ProductName.ToLower().Contains(ProductKeyword.ToLower())).ToListAsync();
+
+                if (isProductExist != null)
+                {
+                    var productListFound = _mapper.Map<IEnumerable<ProductDto>>(isProductExist);
+                    return productListFound;
+                }
+
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException($"Error while searching of keyward with {ProductKeyword}");
+            }
         }
     }
 }

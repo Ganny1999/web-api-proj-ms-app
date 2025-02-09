@@ -34,11 +34,12 @@ namespace product_api_ms.Controllers
         [HttpGet]
         //[Authorize(Roles ="ADMIN,USER")]
         // [Attribute("RequiredHttpsAttributeFilter")]
-        public Task<IEnumerable<ProductDto>> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            var products = _productService.GetAllProductAsync();
+            var products = await _productService.GetAllProductAsync();
             return products;
         }
+
         [HttpPost]
         //[Authorize(Roles ="ADMIN")]
         public async Task<ActionResult<ProductDto>> AddProduct([FromBody] Product product)
@@ -54,22 +55,23 @@ namespace product_api_ms.Controllers
             return Ok(addProduct);
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteProduct/{prodID:int}")]
         //[Authorize(Roles = "ADMIN")]
-        [Route("DeleteProduct")]
-        public ActionResult<Product> DeleteProduct(int prodID)
+        public async Task<ActionResult<bool>> DeleteProduct(int prodID)
         {
-            var isProductAvailable = _context.Products.FirstOrDefault(u => u.ProductID == prodID);
-            if (isProductAvailable != null)
+            if(prodID >int.MinValue && prodID< int.MaxValue)
             {
-                var product = _context.Products.Remove(isProductAvailable);
-                _context.SaveChanges();
-                return Ok(isProductAvailable);
+                var isProductDeleted= await _productService.DeleteProductAsync(prodID);
+                if(isProductDeleted) 
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         [HttpPut]
@@ -159,11 +161,11 @@ namespace product_api_ms.Controllers
                 Direction = System.Data.ParameterDirection.Output
             };
             var res = _context.Database.ExecuteSqlRaw("Exec OutParameterDemo @Rating={0},@Value = @Value output", rating, outputParameter);
-            return res;
+            return products.Count;
         }
 
         [HttpGet("SearchProductByName")]
-        public async Task<ActionResult<ProductDto>> SearchProductByName(string ProductName)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProductByName(string ProductName)
         {
             try
             {
@@ -171,11 +173,10 @@ namespace product_api_ms.Controllers
                 {
                     return BadRequest("Product name cannot be null or empty.");
                 }
-                var product = await _context.Products.Where(u => u.ProductName.ToLower().Contains(ProductName.ToLower())).ToListAsync();
-                var productDto = _mapper.Map<List<ProductDto>>(product);
+                var product = await _productService.SearchProductByName(ProductName);
                 if (!product.IsNullOrEmpty())
                 {
-                    return Ok(productDto);
+                    return Ok(product);
                 }
                 return NotFound($"Could not found product with name '{ProductName}'.");
             }

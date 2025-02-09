@@ -9,7 +9,8 @@ namespace product_api_ms.DomainModel.Interfaces
         Task<ProductDto> GetProductByIdAsync(int ProductID);
         Task<ProductDto> AddProductAsync(Product product);
         Task<ProductDto> UpdateProductAsync(Product product);
-        Task DeleteProductAsync(int ProductID);
+        Task<IEnumerable<ProductDto>> SearchProductByName(string ProductKeyword);
+        Task<bool> DeleteProductAsync(int ProductID);
         Task<bool> UpdateProductRating();
     }
 }
